@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anis Smaoui</title>
+<style>
+  :root{
+    --bg:#0F1B2C;
+    --panel:#16283F;
+    --grid:#22385430;
+    --line:#2A425F;
+    --amber:#E8A33D;
+    --text:#EDEEF0;
+    --text-dim:#9FB3C8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0/32px 32px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0/32px 32px,
+      var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:24px;
+  }
+  .card{
+    width:100%;
+    max-width:380px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:24px 22px 20px;
+  }
+  .top{ text-align:center; }
+  .ring{
+    width:72px;height:72px;
+    border-radius:50%;
+    margin:0 auto 14px;
+    padding:3px;
+    border:1px solid var(--amber);
+  }
+  .ring img{
+    width:100%;height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+  }
+  h1{ font-size:18px; font-weight:600; letter-spacing:0.2px; }
+  .role{ margin-top:6px; font-size:13px; color:var(--text-dim); line-height:1.5; }
+  .divider{ height:1px; background:var(--line); margin:18px 0 14px; }
+  .rows{ display:flex; flex-direction:column; gap:7px; }
+  .row{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:10px 13px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    text-decoration:none;
+    color:var(--text);
+    font-size:13px;
+    background:none;
+    cursor:pointer;
+    width:100%;
+    text-align:left;
+    font-family:inherit;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .row:hover{ border-color:var(--amber); background:#1C3049; }
+  .tag, .label{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11px;
+    color:var(--amber);
+    flex-shrink:0;
+  }
+  .label{ width:42px; font-size:10px; padding-top:2px; }
+  .row-main{ display:flex; align-items:center; justify-content:space-between; flex:1; }
+  .val small{ display:block; color:var(--text-dim); font-size:12px; margin-top:2px; }
+  .foot{
+    margin-top:16px;
+    font-size:11px;
+    color:var(--text-dim);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    text-align:center;
+  }
+  .back{
+    display:block;
+    text-align:center;
+    margin-top:14px;
+    font-size:12px;
+    color:var(--text-dim);
+    text-decoration:none;
+    background:none;
+    border:none;
+    cursor:pointer;
+    width:100%;
+    font-family:inherit;
+  }
+  .back:hover{ color:var(--amber); }
+  .save-btn{
+    display:block;
+    width:100%;
+    margin-top:4px;
+    padding:13px 16px;
+    background:var(--amber);
+    color:#16283F;
+    border:none;
+    border-radius:3px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    font-family:inherit;
+    text-decoration:none;
+    text-align:center;
+    box-sizing:border-box;
+  }
+  .save-btn:hover{ filter:brightness(1.05); }
+  #view-abn, #view-crc{ display:none; }
+</style>
+</head>
+<body>
+
+  <div class="card" id="view-profile">
+    <div class="top">
+      <div class="ring">
+        <img src="data:image/jpeg;base64,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" alt="Anis Smaoui">
+      </div>
+      <h1>Anis Smaoui</h1>
+      <div class="role">Directeur Des Opérations</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="rows">
+      <button class="row" onclick="showABN()">
+        <span class="row-main">
+          <span>Anis Smaoui — ABN</span>
+          <span class="tag">ABN</span>
+        </span>
+      </button>
+      <button class="row" onclick="showCRC()">
+        <span class="row-main">
+          <span>Anis Smaoui — CRC</span>
+          <span class="tag">CRC</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="foot">ProCardMaroc</div>
+  </div>
+
+  <div class="card" id="view-abn">
+    <div class="top">
+      <h1>Anis Smaoui</h1>
+      <div class="role">Directeur Des Opérations — ABN Maroc</div>
+    </div>
+
+    <a class="save-btn" href="anis-smaoui-abn.vcf" download="Anis-Smaoui-ABN.vcf">+ Enregistrer le contact</a>
+
+    <div class="divider"></div>
+
+    <div class="rows">
+      <a class="row" href="tel:+212522342335">
+        <span class="label">TEL</span>
+        <span class="val">+212 522 342 335<small>Ligne fixe</small></span>
+      </a>
+      <a class="row" href="tel:+212666295949">
+        <span class="label">TEL</span>
+        <span class="val">+212 666 295 949<small>Ligne marocaine</small></span>
+      </a>
+      <a class="row" href="tel:+21652717275">
+        <span class="label">TEL</span>
+        <span class="val">+216 52 717 275<small>Ligne tunisienne</small></span>
+      </a>
+      <a class="row" href="mailto:asmaoui@abnec.fr">
+        <span class="label">MAIL</span>
+        <span class="val">asmaoui@abnec.fr</span>
+      </a>
+      <a class="row" href="https://www.google.com/maps/search/?api=1&query=Residence+Firdaous+GH1+Imm+3+Bureau+13+Ain+Sebaa+Casablanca" target="_blank" rel="noopener">
+        <span class="label">ADR.</span>
+        <span class="val">Résidence Firdaous, GH1, Imm 3, bureau n°13, 4ème étage, Aïn Sebaâ, Casablanca</span>
+      </a>
+      <a class="row" href="https://www.linkedin.com/in/anis-smaoui-51170521/" target="_blank" rel="noopener">
+        <span class="label">IN</span>
+        <span class="val">LinkedIn<small>anis-smaoui-51170521</small></span>
+      </a>
+      <a class="row" href="https://abnec.com/abn-maroc/" target="_blank" rel="noopener">
+        <span class="label">WEB</span>
+        <span class="val">abnec.com<small>ABN Maroc</small></span>
+      </a>
+    </div>
+
+    <button class="back" onclick="showProfile()">&larr; Retour au profil</button>
+  </div>
+
+  <div class="card" id="view-crc">
+    <div class="top">
+      <h1>Anis Smaoui</h1>
+      <div class="role">Directeur Des Opérations — CRC</div>
+    </div>
+
+    <a class="save-btn" href="anis-smaoui-crc.vcf" download="Anis-Smaoui-CRC.vcf">+ Enregistrer le contact</a>
+
+    <div class="divider"></div>
+
+    <div class="rows">
+      <a class="row" href="tel:+21652717275">
+        <span class="label">TEL</span>
+        <span class="val">+216 52 717 275<small>Ligne tunisienne</small></span>
+      </a>
+      <a class="row" href="tel:+212666295949">
+        <span class="label">TEL</span>
+        <span class="val">+212 666 295 949<small>Ligne marocaine</small></span>
+      </a>
+      <a class="row" href="mailto:asmaoi@concept-refrigeration.com">
+        <span class="label">MAIL</span>
+        <span class="val">asmaoi@concept-refrigeration.com</span>
+      </a>
+      <a class="row" href="https://www.linkedin.com/in/anis-smaoui-51170521/" target="_blank" rel="noopener">
+        <span class="label">IN</span>
+        <span class="val">LinkedIn<small>anis-smaoui-51170521</small></span>
+      </a>
+      <a class="row" href="https://www.concept-refrigeration.com/" target="_blank" rel="noopener">
+        <span class="label">WEB</span>
+        <span class="val">concept-refrigeration.com<small>CRC</small></span>
+      </a>
+    </div>
+
+    <button class="back" onclick="showProfile()">&larr; Retour au profil</button>
+  </div>
+
+  <script>
+    function showABN(){
+      document.getElementById('view-profile').style.display = 'none';
+      document.getElementById('view-abn').style.display = 'block';
+    }
+    function showCRC(){
+      document.getElementById('view-profile').style.display = 'none';
+      document.getElementById('view-crc').style.display = 'block';
+    }
+    function showProfile(){
+      document.getElementById('view-abn').style.display = 'none';
+      document.getElementById('view-crc').style.display = 'none';
+      document.getElementById('view-profile').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

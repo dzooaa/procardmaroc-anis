@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Smaoui;Anis;;;
+FN:Anis Smaoui
+ORG:ABN Maroc
+TITLE:Directeur Des Operations
+TEL;TYPE=WORK,VOICE:+212522342335
+TEL;TYPE=CELL:+212666295949
+TEL;TYPE=WORK:+21652717275
+EMAIL:asmaoui@abnec.fr
+ADR;TYPE=WORK:;;Residence Firdaous, GH1, Imm 3, bureau n13, 4eme etage, Ain Sebaa;Casablanca;;;Maroc
+URL:https://abnec.com/abn-maroc/
+END:VCARD
