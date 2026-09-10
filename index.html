@@ -252,6 +252,7 @@
       document.getElementById('view-profile').style.display = 'block';
     }
     function downloadContactCRC() {
+
     const vcard = `BEGIN:VCARD
 VERSION:3.0
 N:Smaoui;Anis;;;
@@ -266,17 +267,41 @@ ADR;TYPE=WORK:;;;Résidence Firdaous, GH1, Imm 3, bureau n13, 4ème étage, Ain 
 URL:https://abnec.com/abn-maroc/
 END:VCARD`;
 
-    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
+    const blob = new Blob([vcard], {
+        type: "text/vcard;charset=utf-8"
+    });
 
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "Anis-Smaoui-CRC.vcf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const file = new File(
+        [blob],
+        "Anis-Smaoui-CRC.vcf",
+        { type: "text/vcard" }
+    );
 
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+
+        navigator.share({
+            files: [file],
+            title: "Anis Smaoui - CRC"
+        }).catch(function(error) {
+            console.log("Partage annulé :", error);
+        });
+
+    } else {
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "Anis-Smaoui-CRC.vcf";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setTimeout(function() {
+            URL.revokeObjectURL(url);
+        }, 1000);
+    }
 }
   </script>
 </body>
