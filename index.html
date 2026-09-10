@@ -161,9 +161,9 @@
       <div class="role">Directeur Des Opérations — ABN Maroc</div>
     </div>
 
-     <a class="save-btn" href="Anis-Smaoui-ABN.vcf">
+     <button class="save-btn" onclick="downloadContactCRC()">
   + Enregistrer le contacte
-     </a>
+     </button>
   
     <div class="divider"></div>
 
@@ -206,9 +206,9 @@
       <h1>Anis Smaoui</h1>
       <div class="role">Directeur Des Opérations — CRC</div>
     </div>
-<a class="save-btn" href="anis-smaoui-crc.vcf">
+<button class="save-btn" onclick="downloadContactABN()"> 
   +Enregistrer le contact
-</a>
+</button>
     <div class="divider"></div>
 
     <div class="rows">
@@ -251,6 +251,33 @@
       document.getElementById('view-crc').style.display = 'none';
       document.getElementById('view-profile').style.display = 'block';
     }
+    function downloadContactCRC() {
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+N:Smaoui;Anis;;;
+FN:Anis Smaoui
+ORG:ABN Maroc
+TITLE:Directeur des Opérations - CRC
+TEL;TYPE=WORK:+212522342335
+TEL;TYPE=CELL:+212666295949
+TEL;TYPE=WORK:+21652717275
+EMAIL:asmaoui@abnec.fr
+ADR;TYPE=WORK:;;;Résidence Firdaous, GH1, Imm 3, bureau n13, 4ème étage, Ain Sebaa;Casablanca;;Morocco
+URL:https://abnec.com/abn-maroc/
+END:VCARD`;
+
+    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "Anis-Smaoui-CRC.vcf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
   </script>
 </body>
 </html>
